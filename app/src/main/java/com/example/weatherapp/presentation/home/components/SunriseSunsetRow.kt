@@ -1,0 +1,62 @@
+package com.example.weatherapp.presentation.home.components
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weatherapp.R
+import com.example.weatherapp.ui.theme.AppTheme
+
+@Composable
+fun SunriseSunsetRow(
+    sunriseTime: String,
+    sunsetTime: String,
+    modifier: Modifier = Modifier
+) {
+    val colors = AppTheme.colors
+
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.clouds),
+            contentDescription = "Sunset",
+            tint = colors.accent,
+            modifier = Modifier.size(16.dp)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(
+            text = "Sunset $sunsetTime",
+            color = colors.textMuted,
+            fontSize = 13.sp
+        )
+        Text(
+            text = "  •  ",
+            color = colors.textMuted,
+            fontSize = 13.sp
+        )
+        Icon(
+            painter = painterResource(R.drawable.sun),
+            contentDescription = "Sunrise",
+            tint = colors.accent,
+            modifier = Modifier.size(16.dp)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(
+            text = "Sunrise $sunriseTime",
+            color = colors.textMuted,
+            fontSize = 13.sp
+        )
+    }
+}
