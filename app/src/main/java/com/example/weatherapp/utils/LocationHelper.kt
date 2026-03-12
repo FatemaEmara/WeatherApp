@@ -28,9 +28,9 @@ class LocationHelper(private val context: Context) {
     @SuppressLint("MissingPermission")
     fun getFreshLocation(onLocation: (Location?) -> Unit) {
         fusedClient.requestLocationUpdates(
-            LocationRequest.Builder(30_000L) // poll every 30 seconds
+            LocationRequest.Builder(30_000L)
                 .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setMinUpdateDistanceMeters(500f) // only fire if user moved 500m+
+                .setMinUpdateDistanceMeters(500f)
                 .build(),
             object : LocationCallback() {
                 override fun onLocationResult(result: LocationResult) {
