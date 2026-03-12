@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -60,5 +61,17 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.0")
 
     implementation("com.google.android.gms:play-services-location:21.3.0")
+
+
+    // OSMDroid free map
+    implementation( "org.osmdroid:osmdroid-android:6.1.18")
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
+    //Room
+
+    implementation (libs.androidx.room.ktx)
+    implementation (libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
 }

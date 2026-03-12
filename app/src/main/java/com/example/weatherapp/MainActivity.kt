@@ -4,11 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.weatherapp.navigation.AppNavigation
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.rememberNavController
+import com.example.weatherapp.navigation.AppNavHost
+import com.example.weatherapp.presentation.shared.BottomNavBar
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,8 +21,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                AppNavigation()
+                //   AppNavigation()
 
+                val navController = rememberNavController()
+
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(0xFF0D1B3E)),
+                    containerColor = Color.Transparent,
+                    bottomBar = {
+                        BottomNavBar(navController = navController)
+                    }
+                ) { innerPadding ->
+                    AppNavHost(
+                        navController = navController,
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
 
             }
         }
