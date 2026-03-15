@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">تطبيق الطقس</string>
+
+    <string name="loading_weather">جارٍ تحميل الطقس…</string>
+    <string name="today">اليوم</string>
+    <string name="feels_like">يبدو كـ</string>
+    <string name="no_hourly_data">لا توجد بيانات بالساعة</string>
+    <string name="no_forecast_data">لا توجد بيانات للتوقعات</string>
+
+
+    <string name="hourly">تفاصيل</string>
+    <string name="details">الساعة</string>
+    <string name="daily_normal">تفاصيل</string>
+    <string name="daily_bold">اليومية</string>
+    <string name="next_days_normal">الأيام</string>
+    <string name="next_days_bold">القادمة</string>
+
+    <string name="pressure">الضغط</string>
+    <string name="wind_speed">سرعة الريح</string>
+    <string name="humidity">الرطوبة</string>
+    <string name="clouds">الغيوم</string>
+
+    <string name="feels_like_label">يبدو كـ</string>
+
+    <string name="sunrise">شروق الشمس</string>
+    <string name="sunset">غروب الشمس</string>
+
+    <string name="favorites_empty_title">لا توجد مفضلة</string>
+    <string name="favorites_empty_subtitle">أضف مواقع من الخريطة لتظهر هنا</string>
+    <string name="add_favorite">إضافة موقع</string>
+    <string name="favorite">المفضلة</string>
+
+    <string name="back">رجوع</string>
+    <string name="loading">جارٍ التحميل…</string>
+    <string name="location_not_found">الموقع غير موجود</string>
+    <string name="forecast">تنبؤ بالمناخ</string>
+
+    <string name="settings_title_normal">إعدادات</string>
+    <string name="settings_title_bold">التطبيق</string>
+
+    <string name="section_location">الموقع</string>
+    <string name="section_temperature_unit">وحدة الحرارة</string>
+    <string name="section_wind_unit">وحدة سرعة الريح</string>
+    <string name="section_language">اللغة</string>
+    <string name="section_theme">المظهر</string>
+
+    <string name="use_gps">استخدام GPS</string>
+    <string name="choose_from_map">اختيار من الخريطة</string>
+    <string name="open_map">فتح الخريطة</string>
+    <string name="change_location">تغيير الموقع</string>
+
+    <string name="celsius">مئوية °C</string>
+    <string name="fahrenheit">فهرنهايت °F</string>
+    <string name="kelvin">كلفن K</string>
+
+
+    <string name="meter_per_sec">متر / ثانية</string>
+    <string name="miles_per_hour">ميل / ساعة</string>
+
+
+    <string name="language_english">الإنجليزية</string>
+    <string name="language_arabic">العربية</string>
+
+
+    <string name="theme_light">فاتح</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_system">تلقائي</string>
+
+    <string name="map_title_favorite">إضافة موقع مفضل</string>
+    <string name="map_title_settings">تحديد الموقع الرئيسي</string>
+    <string name="map_search_hint">ابحث عن مدينة…</string>
+    <string name="map_save">حفظ الموقع</string>
+    <string name="map_no_selection">اضغط مطولاً على الخريطة لاختيار موقع</string>
+    <string name="select_location_first">اختر مكان اولا </string>
+
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_favorite">المفضلة</string>
+    <string name="nav_alerts">التنبيهات</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="delete">مسح</string>
+    <string name="open">فتح</string>
+    <string name="map">خريطه</string>
+    <string name="search_for_a_city">البحث عن مدينه...</string>
+    <string name="search">بحث</string>
+
+
+</resources>
