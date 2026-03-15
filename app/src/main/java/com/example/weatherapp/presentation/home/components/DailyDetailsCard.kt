@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,10 +28,15 @@ fun DailyDetailsCard(
     windSpeed: Double,
     humidity: Int,
     clouds: Int,
+    windUnit: String,
+    lang: String,
     modifier: Modifier = Modifier
 ) {
-    val colors = AppTheme.colors
 
+    val windLabel = when (windUnit) {
+        "mph" -> "mph"
+        else -> "m/s"
+    }
     WeatherCard(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(
@@ -39,13 +45,13 @@ fun DailyDetailsCard(
             ) {
                 DetailItem(
                     iconRes = R.drawable.compress,
-                    label = "Pressure",
+                    label = stringResource(R.string.pressure),
                     value = "$pressure hPa"
                 )
                 DetailItem(
                     iconRes = R.drawable.air,
-                    label = "Wind Speed",
-                    value = "$windSpeed m/s"
+                    label = stringResource(R.string.wind_speed),
+                    value = "$windSpeed $windLabel"
                 )
             }
             Spacer(Modifier.height(20.dp))
@@ -55,13 +61,13 @@ fun DailyDetailsCard(
             ) {
                 DetailItem(
                     iconRes = R.drawable.waterdrop,
-                    label = "Humidity",
+                    label = stringResource(R.string.humidity),
                     value = "$humidity %"
                 )
 
                 DetailItem(
                     iconRes = R.drawable.clouds,
-                    label = "Clouds",
+                    label = stringResource(R.string.clouds),
                     value = "$clouds %"
                 )
             }

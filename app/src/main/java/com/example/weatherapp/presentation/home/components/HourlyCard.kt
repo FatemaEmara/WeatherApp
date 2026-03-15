@@ -25,10 +25,15 @@ fun HourlyCard(
     item: ForecastItem,
     hourLabel: String,
     iconRes: Int,
+    units: String,
     modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
-
+    val unitLabel = when (units) {
+        "imperial" -> "°F"
+        "standard" -> "K"
+        else       -> "°C"
+    }
     WeatherCard(modifier = modifier.width(82.dp)) {
         Column(
             modifier = Modifier.padding(vertical = 14.dp, horizontal = 8.dp),
@@ -54,7 +59,7 @@ fun HourlyCard(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "°C",
+                    text = unitLabel,
                     color = colors.textMuted,
                     fontSize = 10.sp
                 )

@@ -26,13 +26,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.weatherapp.data.weather.WeatherRepository
+import com.example.weatherapp.R
+import com.example.weatherapp.data.weather.AppRepository
 import com.example.weatherapp.data.weather.model.ForecastItem
 import com.example.weatherapp.data.weather.model.ForecastResponse
 import com.example.weatherapp.presentation.forcastdetail.components.DetailDailyRow
@@ -51,7 +53,8 @@ import java.util.Locale
 fun ForecastDetailScreen(
     locationId: Int,
     navController: NavController,
-    repository: WeatherRepository
+    repository: AppRepository,
+    viewModel: ForecastDetailViewModel
 ) {
     val colors = AppTheme.colors
 
@@ -86,6 +89,7 @@ fun ForecastDetailScreen(
                 }
                 Spacer(Modifier.width(8.dp))
                 Column {
+
                     Text(
                         text = location?.cityName ?: "Loading…",
                         color = colors.textPrimary,
@@ -121,7 +125,7 @@ fun ForecastDetailScreen(
                 }
 
                 is ResponseState.Success -> {
-                    ForecastDetailContent(forecast = state.data)
+                    ForecastDetailContent(forecast = state.data,viewModel)
                 }
             }
         }
@@ -129,10 +133,14 @@ fun ForecastDetailScreen(
 }
 
 @Composable
-private fun ForecastDetailContent(forecast: ForecastResponse) {
+private fun ForecastDetailContent(forecast: ForecastResponse,viewModel: ForecastDetailViewModel) {
     val colors = AppTheme.colors
     val hourlyItems = forecast.todayHourlyItems()
     val dailyItems = forecast.dailyItems()
+
+    val units by viewModel.units.collectAsState()
+    val windUnit by viewModel.windUnit.collectAsState()
+    val lang by viewModel.lang.collectAsState()
 
     LazyColumn(
         modifier = Modifier
@@ -146,11 +154,12 @@ private fun ForecastDetailContent(forecast: ForecastResponse) {
         }
 
         item {
-            SectionTitle(normal = "Hourly", bold = "Details")
+            SectionTitle(normal = stringResource(R.string.daily_normal),
+                bold = stringResource(R.string.daily_bold))
             Spacer(Modifier.height(10.dp))
             if (hourlyItems.isEmpty()) {
                 Text(
-                    text = "No hourly data available today",
+                    text = stringResource(R.string.no_hourly_data),
                     color = colors.textMuted,
                     fontSize = 13.sp
                 )
@@ -168,7 +177,8 @@ private fun ForecastDetailContent(forecast: ForecastResponse) {
 
         item {
             Spacer(Modifier.height(4.dp))
-            SectionTitle(normal = "5-Day", bold = "Forecast")
+            SectionTitle(normal = stringResource(R.string.next_days_normal),
+                bold = stringResource(R.string.forecast))
             Spacer(Modifier.height(10.dp))
         }
 
@@ -176,7 +186,8 @@ private fun ForecastDetailContent(forecast: ForecastResponse) {
             DetailDailyRow(
                 item = item,
                 weekday = item.dt.toWeekday(),
-                shortDate = item.dt.toShortDate()
+                shortDate = item.dt.toShortDate(),
+                units = units
             )
         }
 

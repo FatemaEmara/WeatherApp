@@ -4,14 +4,14 @@ package com.example.weatherapp.presentation.fav.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.data.weather.WeatherRepository
+import com.example.weatherapp.data.weather.AppRepository
 import com.example.weatherapp.data.weather.model.FavoriteLocation
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class FavoriteViewModel(private val repository: WeatherRepository) : ViewModel() {
+class FavoriteViewModel(private val repository: AppRepository) : ViewModel() {
 
     val favorites: StateFlow<List<FavoriteLocation>> = repository
         .getAllFavorites()
@@ -30,8 +30,8 @@ class FavoriteViewModel(private val repository: WeatherRepository) : ViewModel()
     }
 }
 
-@Suppress("UNCHECKED_CAST")
-class FavoriteFactory(private val repository: WeatherRepository) : ViewModelProvider.Factory {
+class FavoriteFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(repository) as T

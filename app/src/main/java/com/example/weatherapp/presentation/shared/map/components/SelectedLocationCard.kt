@@ -15,9 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapp.R
 import com.example.weatherapp.ui.theme.AppTheme
 
 @Composable
@@ -69,7 +71,7 @@ fun SelectedLocationCard(
             )
         ) {
             Text(
-                text = "Save Location",
+                text = stringResource(R.string.map_save),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = colors.textPrimary
@@ -95,7 +97,7 @@ fun NoSelectionButton(modifier: Modifier = Modifier) {
         )
     ) {
         Text(
-            text = "Select a location first",
+            text = stringResource(R.string.select_location_first),
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )
