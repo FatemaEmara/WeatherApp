@@ -2,23 +2,42 @@ package com.example.weatherapp.presentation.shared.map
 
 import android.preference.PreferenceManager
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.weatherapp.R
 import com.example.weatherapp.data.network.LocationNetwork
 import com.example.weatherapp.data.weather.model.LocationResult
 import com.example.weatherapp.presentation.shared.map.components.MapSearchBar
@@ -155,7 +174,7 @@ fun MapPickerScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.back),
                         tint = colors.textPrimary
                     )
                 }
@@ -163,15 +182,14 @@ fun MapPickerScreen(
                 Text(
 
                     text = when (source) {
-                        MapPickerSource.FAVORITE -> "Add Favorite Location"
-                        MapPickerSource.SETTINGS -> "Set Home Location"
+                        MapPickerSource.FAVORITE -> stringResource(R.string.map_title_favorite)
+                        MapPickerSource.SETTINGS -> stringResource(R.string.map_title_settings)
                     },
                     color = colors.textPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
-
             Spacer(Modifier.height(10.dp))
 
             MapSearchBar(
@@ -210,7 +228,7 @@ fun MapPickerScreen(
                     .padding(horizontal = 20.dp, vertical = 12.dp)
             ) {
                 Text(
-                    text = "Search a city above\nor long-press on the map to pin",
+                    text =stringResource(R.string.map_no_selection),
                     color = colors.textMuted,
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center

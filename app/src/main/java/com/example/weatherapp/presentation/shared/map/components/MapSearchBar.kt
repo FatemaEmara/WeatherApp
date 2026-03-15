@@ -1,14 +1,26 @@
 package com.example.weatherapp.presentation.shared.map.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DockedSearchBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,14 +52,14 @@ fun MapSearchBar(
                 onExpandedChange = {},
                 placeholder = {
                     Text(
-                        text = "Search for a city…",
+                        text = stringResource(com.example.weatherapp.R.string.search_for_a_city),
                         color = colors.textMuted
                     )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Search,
-                        contentDescription = "Search",
+                        contentDescription = stringResource(com.example.weatherapp.R.string.search),
                         tint = colors.textMuted
                     )
                 },

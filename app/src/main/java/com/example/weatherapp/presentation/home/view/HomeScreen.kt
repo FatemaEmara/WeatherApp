@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,9 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapp.R
 import com.example.weatherapp.data.weather.model.CurrentWeatherResponse
 import com.example.weatherapp.data.weather.model.ForecastItem
 import com.example.weatherapp.data.weather.model.ForecastResponse
@@ -54,27 +57,31 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val context = LocalContext.current
     val locationHelper = remember { LocationHelper(context) }
 
+    val units by viewModel.units.collectAsState()
+    val windUnit by viewModel.windUnit.collectAsState()
+    val lang by viewModel.lang.collectAsState()
+    val locationMode by viewModel.locationMode.collectAsState()
+
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val granted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true
         if (granted && locationHelper.isLocationEnabled()) {
             locationHelper.getFreshLocation { location ->
-                location?.let {
-                    viewModel.loadCurrentWeather(it.latitude, it.longitude)
-                    viewModel.loadForecast(it.latitude, it.longitude)
-                }
+                location?.let { viewModel.loadWeather(it.latitude, it.longitude) }
             }
         }
     }
 
-    LaunchedEffect(Unit) {
-        permissionLauncher.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+    LaunchedEffect(locationMode) {
+        if (locationMode == "gps") {
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
             )
-        )
+        }
     }
 
     val weatherState by viewModel.weatherState.collectAsState()
@@ -86,7 +93,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
             .background(Brush.verticalGradient(listOf(colors.bgTop, colors.bgBottom)))
     ) {
         when (weatherState) {
-            is ResponseState.Loading -> FullScreenMessage("Loading weather…")
+            is ResponseState.Loading -> LoadingScreen()
             is ResponseState.Failure -> FullScreenMessage(
                 (weatherState as ResponseState.Failure).error
             )
@@ -94,7 +101,13 @@ fun HomeScreen(viewModel: HomeViewModel) {
             is ResponseState.Success -> {
                 val current = (weatherState as ResponseState.Success).data
                 val forecast = (forecastState as? ResponseState.Success)?.data
-                WeatherContent(current = current, forecast = forecast)
+                WeatherContent(
+                    current = current,
+                    forecast = forecast,
+                    units = units,
+                    windUnit = windUnit,
+                    lang = lang
+                )
             }
         }
     }
@@ -103,8 +116,12 @@ fun HomeScreen(viewModel: HomeViewModel) {
 @Composable
 private fun WeatherContent(
     current: CurrentWeatherResponse,
-    forecast: ForecastResponse?
+    forecast: ForecastResponse?,
+    units: String,
+    windUnit: String,
+    lang: String
 ) {
+    val locale = if (lang == "ar") Locale("ar") else Locale.ENGLISH
     val hourlyItems = forecast?.todayHourlyItems() ?: emptyList()
     val dailyItems = forecast?.dailyItems() ?: emptyList()
 
@@ -117,9 +134,12 @@ private fun WeatherContent(
     ) {
         TopWeatherBar(
             description = current.weather.firstOrNull()?.description
-                ?.replaceFirstChar { it.uppercase() } ?: "—",
+                ?.let { if (lang == "ar") it else it.replaceFirstChar { c -> c.uppercase() } }
+                ?: "—",
             feelsLike = current.main.feelsLike,
-            dateString = current.dt.toDateString()
+            dateString = current.dt.toDateString(locale),
+            units = units,
+            lang = lang
         )
 
         Spacer(Modifier.height(16.dp))
@@ -128,79 +148,83 @@ private fun WeatherContent(
             iconRes = iconRes(current.weather.firstOrNull()?.icon ?: "01d"),
             tempCelsius = current.main.temp,
             cityName = current.name,
-            countryCode = current.sys.country
+            countryCode = current.sys.country,
+            units = units
         )
 
         Spacer(Modifier.height(12.dp))
 
         SunriseSunsetRow(
-            sunriseTime = current.sys.sunrise.toTimeString(),
-            sunsetTime = current.sys.sunset.toTimeString()
+            sunriseTime = current.sys.sunrise.toTimeString(locale),
+            sunsetTime = current.sys.sunset.toTimeString(locale)
         )
 
         Spacer(Modifier.height(28.dp))
 
-        SectionTitle(
-            normal = "Hourly",
-            bold = "Details"
-        )
+        SectionTitle(normal = stringResource(R.string.hourly), bold = stringResource(R.string.details))
         Spacer(Modifier.height(12.dp))
 
         if (hourlyItems.isEmpty()) {
-            NoDataText("No hourly data available")
+            NoDataText(stringResource(R.string.no_hourly_data))
         } else {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(hourlyItems) { item ->
                     HourlyCard(
                         item = item,
-                        hourLabel = item.dt.toHourLabel(),
+                        hourLabel = item.dt.toHourLabel(locale),
                         iconRes = iconRes(item.weather.firstOrNull()?.icon ?: "01d"),
-
-                        )
+                        units = units
+                    )
                 }
             }
         }
 
         Spacer(Modifier.height(28.dp))
 
-        SectionTitle(
-            normal = "Daily",
-            bold = "Details"
-        )
+        SectionTitle(normal =stringResource(R.string.daily_bold), bold = stringResource(R.string.details))
         Spacer(Modifier.height(12.dp))
 
         DailyDetailsCard(
             pressure = current.main.pressure,
             windSpeed = current.wind.speed,
             humidity = current.main.humidity,
-            clouds = current.clouds.all
+            clouds = current.clouds.all,
+            windUnit = windUnit,
+            lang = lang
         )
 
         Spacer(Modifier.height(28.dp))
 
-        SectionTitle(
-            normal = "Next 7",
-            bold = "Days"
-        )
+        SectionTitle(normal =stringResource(R.string.next_days_normal), bold = stringResource(R.string.next_days_bold))
         Spacer(Modifier.height(12.dp))
 
         if (dailyItems.isEmpty()) {
-            NoDataText("No forecast data available")
+            NoDataText(stringResource(R.string.no_forecast_data))
         } else {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 dailyItems.forEachIndexed { index, item ->
                     DailyRow(
                         item = item,
                         isToday = index == 0,
-                        weekday = item.dt.toWeekday(),
-                        shortDate = item.dt.toShortDate(),
-                        iconRes = iconRes(item.weather.firstOrNull()?.icon ?: "01d")
+                        weekday = item.dt.toWeekday(locale),
+                        shortDate = item.dt.toShortDate(locale),
+                        iconRes = iconRes(item.weather.firstOrNull()?.icon ?: "01d"),
+                        units = units,
+                        lang = lang
                     )
                 }
             }
         }
 
         Spacer(Modifier.height(80.dp))
+    }
+}
+
+@Composable
+private fun LoadingScreen() {
+    val colors = AppTheme.colors
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator(color = colors.accent)
     }
 }
 
@@ -212,46 +236,44 @@ private fun FullScreenMessage(message: String) {
             text = message,
             color = colors.textPrimary,
             fontSize = 16.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 32.dp)
         )
     }
 }
 
 @Composable
 private fun NoDataText(message: String) {
-    Text(
-        text = message,
-        color = AppTheme.colors.textMuted,
-        fontSize = 13.sp
-    )
+    Text(text = message, color = AppTheme.colors.textMuted, fontSize = 13.sp)
 }
 
-private fun Long.toTimeString(): String =
-    SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(this * 1000L))
+private fun Long.toTimeString(locale: Locale): String =
+    SimpleDateFormat("hh:mm a", locale).format(Date(this * 1000L))
 
-private fun Long.toDateString(): String =
-    SimpleDateFormat("EEE, dd MMM", Locale.getDefault()).format(Date(this * 1000L))
+private fun Long.toDateString(locale: Locale): String =
+    SimpleDateFormat("EEE, dd MMM", locale).format(Date(this * 1000L))
 
-private fun Long.toHourLabel(): String =
-    SimpleDateFormat("hha", Locale.getDefault()).format(Date(this * 1000L)).uppercase()
+private fun Long.toHourLabel(locale: Locale): String =
+    SimpleDateFormat("hha", locale).format(Date(this * 1000L)).uppercase(locale)
 
-private fun Long.toWeekday(): String =
-    SimpleDateFormat("EEEE", Locale.getDefault()).format(Date(this * 1000L))
+private fun Long.toWeekday(locale: Locale): String =
+    SimpleDateFormat("EEEE", locale).format(Date(this * 1000L))
 
-private fun Long.toShortDate(): String =
-    SimpleDateFormat("EEE, dd MMM", Locale.getDefault()).format(Date(this * 1000L))
-
+private fun Long.toShortDate(locale: Locale): String =
+    SimpleDateFormat("EEE, dd MMM", locale).format(Date(this * 1000L))
 
 private fun ForecastResponse.todayHourlyItems(): List<ForecastItem> {
-    val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    val today = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date())
     return list.filter { it.dtTxt.startsWith(today) }
 }
 
 private fun ForecastResponse.dailyItems(): List<ForecastItem> {
     val byDay = list.groupBy { item ->
-        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(item.dt * 1000L))
+        SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date(item.dt * 1000L))
     }
     return byDay.values.map { slots ->
         slots.firstOrNull { it.dtTxt.contains("12:00:00") } ?: slots.first()
     }.sortedBy { it.dt }
 }
+
+

@@ -14,9 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapp.R
 import com.example.weatherapp.data.weather.model.ForecastItem
 import com.example.weatherapp.ui.theme.AppTheme
 import kotlin.math.roundToInt
@@ -28,10 +30,16 @@ fun DailyRow(
     weekday: String,
     shortDate: String,
     iconRes: Int,
+    units: String,
+    lang: String,
     modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
-
+    val unitLabel = when (units) {
+        "imperial" -> "°F"
+        "standard" -> "K"
+        else       -> "°C"
+    }
     WeatherCard(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -41,8 +49,9 @@ fun DailyRow(
         ) {
 
             Column(modifier = Modifier.weight(1f)) {
+                val temp = stringResource(R.string.today)
                 Text(
-                    text = if (isToday) "Today" else weekday,
+                    text = if (isToday) temp else weekday,
                     color = colors.textPrimary,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold
@@ -80,13 +89,14 @@ fun DailyRow(
                         fontSize = 14.sp
                     )
                     Text(
-                        text = "${item.main.tempMin.roundToInt()}°C",
+                        text = "${item.main.tempMin.roundToInt()} $unitLabel",
                         color = colors.textMuted,
                         fontSize = 14.sp
                     )
                 }
+                val temp2 = stringResource(R.string.feels_like)
                 Text(
-                    text = "Feels ${item.main.feelsLike.roundToInt()}°C",
+                    text = "$temp2 ${item.main.feelsLike.roundToInt()} $unitLabel",
                     color = colors.textMuted,
                     fontSize = 11.sp
                 )

@@ -1,6 +1,5 @@
 package com.example.weatherapp.presentation.shared.map.components
 
-
 import android.view.MotionEvent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

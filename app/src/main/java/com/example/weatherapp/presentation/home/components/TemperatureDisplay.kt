@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,10 +28,15 @@ fun TemperatureDisplay(
     tempCelsius: Double,
     cityName: String,
     countryCode: String,
+    units: String,
     modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
-
+    val unitLabel = when (units) {
+        "imperial" -> "°F"
+        "standard" -> "K"
+        else       -> "°C"
+    }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -55,7 +61,7 @@ fun TemperatureDisplay(
                 lineHeight = 96.sp
             )
             Text(
-                text = "°C",
+                text     = unitLabel,
                 color = colors.textMuted,
                 fontSize = 22.sp,
                 modifier = Modifier.padding(top = 18.dp)
@@ -67,7 +73,7 @@ fun TemperatureDisplay(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 painter = painterResource(R.drawable.location),
-                contentDescription = "Location",
+                contentDescription = stringResource(R.string.section_location),
                 tint = colors.accent,
                 modifier = Modifier.size(16.dp)
             )

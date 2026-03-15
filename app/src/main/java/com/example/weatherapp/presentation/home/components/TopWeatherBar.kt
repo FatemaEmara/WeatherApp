@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +27,8 @@ fun TopWeatherBar(
     description: String,
     feelsLike: Double,
     dateString: String,
+    units: String,
+    lang: String,
     modifier: Modifier = Modifier
 ) {
     val colors = AppTheme.colors
@@ -47,13 +50,14 @@ fun TopWeatherBar(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     painter = painterResource(R.drawable.thermometer),
-                    contentDescription = "Feels like",
+                    contentDescription = stringResource(R.string.feels_like),
                     tint = colors.accent,
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(Modifier.width(4.dp))
+                val feelslike = stringResource(R.string.feels_like)
                 Text(
-                    text = "Feels like ${feelsLike.roundToInt()}°",
+                    text = "$feelslike ${feelsLike.roundToInt()}°",
                     color = colors.textMuted,
                     fontSize = 14.sp
                 )
@@ -62,7 +66,7 @@ fun TopWeatherBar(
 
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = "Today",
+                text = stringResource(R.string.today),
                 color = colors.textPrimary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
