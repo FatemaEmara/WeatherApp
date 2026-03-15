@@ -9,11 +9,16 @@ interface WeatherRemoteDataSource {
 
     suspend fun getCurrentWeather(
         lat: Double,
-        lon: Double
+        lon: Double,
+        units: String ,
+        lang: String
     ): Flow<ResponseState<CurrentWeatherResponse>>
 
     suspend fun getForecast(
-        lat: Double, lon: Double
+        lat: Double,
+        lon: Double,
+        units: String ,
+        lang: String
     ): Flow<ResponseState<ForecastResponse>>
 
 }

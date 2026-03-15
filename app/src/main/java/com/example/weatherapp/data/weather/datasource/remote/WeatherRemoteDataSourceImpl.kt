@@ -12,11 +12,13 @@ class WeatherRemoteDataSourceImpl(
 
     override suspend fun getCurrentWeather(
         lat: Double,
-        lon: Double
+        lon: Double,
+        units: String,
+        lang: String
     ): Flow<ResponseState<CurrentWeatherResponse>> = flow {
         emit(ResponseState.Loading())
         try {
-            val response = weatherService.getCurrentWeather(lat, lon)
+            val response = weatherService.getCurrentWeather(lat, lon, units, lang)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
@@ -34,11 +36,13 @@ class WeatherRemoteDataSourceImpl(
 
     override suspend fun getForecast(
         lat: Double,
-        lon: Double
+        lon: Double,
+        units: String,
+        lang: String
     ): Flow<ResponseState<ForecastResponse>> = flow {
         emit(ResponseState.Loading())
         try {
-            val response = weatherService.getForecast(lat, lon)
+            val response = weatherService.getForecast(lat, lon, units, lang)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
