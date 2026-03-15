@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,14 +36,14 @@ fun FavEmptyState(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(20.dp))
             Text(
-                text = "No favorites yet",
+                text = stringResource(R.string.favorites_empty_title),
                 color = colors.textPrimary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "Tap + to add a location",
+                text = stringResource(R.string.favorites_empty_subtitle),
                 color = colors.textMuted,
                 fontSize = 14.sp
             )
