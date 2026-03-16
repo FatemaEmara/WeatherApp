@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.weatherapp.data.weather.model.Alert
 import com.example.weatherapp.data.weather.model.FavoriteLocation
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,7 +16,8 @@ private val Context.dataStore: DataStore<Preferences>
 
 class LocalDataSourceImpl(
     private val context: Context,
-    private val favoriteDao: FavoriteDao
+    private val favoriteDao: FavoriteDao,
+    private val alertDao: AlertDao
 ) : LocalDataSource {
 
     private val UNITS_KEY = stringPreferencesKey("units")
@@ -25,6 +27,9 @@ class LocalDataSourceImpl(
     private val MANUAL_LAT_KEY = stringPreferencesKey("manual_lat")
     private val MANUAL_LON_KEY = stringPreferencesKey("manual_lon")
     private val THEME_MODE_KEY = stringPreferencesKey("theme_mode")
+    private val LAST_LAT_KEY           = stringPreferencesKey("last_lat")
+    private val LAST_LON_KEY           = stringPreferencesKey("last_lon")
+
     override fun getFavorites(): Flow<List<FavoriteLocation>> =
         favoriteDao.getAllFavorites()
 
@@ -40,6 +45,22 @@ class LocalDataSourceImpl(
     override suspend fun getFavoriteById(
         id: Int
     ): FavoriteLocation? = favoriteDao.getFavoriteById(id)
+
+    override fun getAllAlerts(): Flow<List<Alert>> =alertDao.getAllAlerts()
+
+    override suspend fun getAlertById(id: Int): Alert? = alertDao.getAlertById(id)
+
+    override suspend fun getActiveAlerts(): List<Alert> =alertDao.getActiveAlerts()
+
+    override suspend fun insertAlert(alert: Alert): Long =alertDao.insertAlert(alert)
+
+    override suspend fun updateAlert(alert: Alert) =alertDao.updateAlert(alert)
+
+    override suspend fun deleteAlert(alert: Alert) = alertDao.deleteAlert(alert)
+
+    override suspend fun deactivateAlert(id: Int) =alertDao.deactivateAlert(id)
+
+    override suspend fun deleteAllAlerts() = alertDao.deleteAllAlerts()
 
 
     override fun getUnits(): Flow<String> =
@@ -91,5 +112,17 @@ class LocalDataSourceImpl(
         context.dataStore.edit { it[THEME_MODE_KEY] = mode }
     }
 
+    override fun getLastKnownLocation(): Flow<Pair<Double, Double>?> =
+        context.dataStore.data.map { prefs ->
+            val lat = prefs[LAST_LAT_KEY]?.toDoubleOrNull()
+            val lon = prefs[LAST_LON_KEY]?.toDoubleOrNull()
+            if (lat != null && lon != null) lat to lon else null
+        }
 
+    override suspend fun setLastKnownLocation(lat: Double, lon: Double) {
+        context.dataStore.edit {
+            it[LAST_LAT_KEY] = lat.toString()
+            it[LAST_LON_KEY] = lon.toString()
+        }
+    }
 }

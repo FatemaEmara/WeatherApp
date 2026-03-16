@@ -17,7 +17,6 @@
     <string name="next_days_bold">Days</string>
     <string name="forecast">Forecast</string>
 
-
     <string name="pressure">Pressure</string>
     <string name="wind_speed">Wind Speed</string>
     <string name="humidity">Humidity</string>
@@ -34,14 +33,12 @@
     <string name="favorite">My Favorites</string>
     <string name="select_location_first">Select a location first</string>
 
-
     <string name="back">Back</string>
     <string name="loading">Loading…</string>
     <string name="location_not_found">Location not found</string>
 
     <string name="settings_title_normal">App</string>
     <string name="settings_title_bold">Settings</string>
-
 
     <string name="section_location">Location</string>
     <string name="section_temperature_unit">Temperature Unit</string>
@@ -86,5 +83,64 @@
     <string name="search_for_a_city">Search for a city…</string>
     <string name="search">Search</string>
 
+
+    <string name="alerts_title_normal">Weather </string>
+    <string name="alerts_title_bold">Alerts</string>
+
+    <string name="alerts_active_count_one">%1$d active alarm</string>
+    <string name="alerts_active_count_other">%1$d active alarms</string>
+
+    <string name="alerts_permission_message">Notification permission needed for alerts to work.</string>
+    <string name="alerts_permission_allow">Allow</string>
+
+    <string name="alerts_section_notification">One-Time Notification</string>
+    <string name="alerts_section_notification_subtitle">Get current weather at a specific time</string>
+    <string name="alerts_section_alarms">Weather Alarms</string>
+    <string name="alerts_section_alarms_subtitle">Loud alarm when a condition is met</string>
+
+    <string name="alerts_notify_me_at">Notify me at</string>
+    <string name="alerts_not_scheduled">Not scheduled</string>
+    <string name="alerts_fires_once">Fires once with current weather</string>
+    <string name="alerts_set_time">Set Time</string>
+    <string name="alerts_change_time">Change</string>
+    <string name="alerts_cancel">Cancel</string>
+
+    <string name="alerts_empty_title">No Alarms Yet</string>
+    <string name="alerts_empty_subtitle">Tap New Alarm to get started</string>
+
+    <string name="alerts_new_alarm">New Alarm</string>
+    <string name="alerts_add_alarm_cd">Add Alarm</string>
+
+    <string name="alerts_card_from">From: %1$s</string>
+    <string name="alerts_card_until">Until: %1$s</string>
+    <string name="alerts_card_active"> Active</string>
+    <string name="alerts_stop_alarm">Stop alarm</string>
+    <string name="alerts_delete_alert">Delete alert</string>
+
+    <string name="weather_type_rain">Rain Alert</string>
+    <string name="weather_type_snow">Snow Alert</string>
+    <string name="weather_type_storm">Storm Alert</string>
+    <string name="weather_type_fog">Fog / Mist Alert</string>
+    <string name="weather_type_heat">Extreme Heat Alert</string>
+    <string name="weather_type_cold">Extreme Cold Alert</string>
+    <string name="weather_type_wind">High Wind Alert</string>
+    <string name="weather_type_any">Any Weather Alert</string>
+    <string name="weather_type_unknown">Weather Alert</string>
+
+    <string name="alerts_sheet_title">New Weather Alarm</string>
+    <string name="alerts_sheet_subtitle">Plays a loud alarm when the condition is detected</string>
+    <string name="alerts_sheet_start_label">Start</string>
+    <string name="alerts_sheet_end_label">End</string>
+    <string name="alerts_sheet_start_hint">Tap to set start time</string>
+    <string name="alerts_sheet_end_hint">Tap to set end time</string>
+    <string name="alerts_sheet_condition_title">Alert Condition</string>
+    <string name="alerts_sheet_condition_subtitle">Alarm fires when this weather is detected</string>
+    <string name="alerts_sheet_confirm">Set Alarm</string>
+
+
+    <string name="alerts_error_no_start">Please set a start date and time.</string>
+    <string name="alerts_error_no_end">Please set an end date and time.</string>
+    <string name="alerts_error_end_before_start">End time must be after start time.</string>
+    <string name="alerts_error_start_in_past">Start time must be in the future.</string>
 
 </resources>

@@ -125,7 +125,7 @@ fun ForecastDetailScreen(
                 }
 
                 is ResponseState.Success -> {
-                    ForecastDetailContent(forecast = state.data,viewModel)
+                    ForecastDetailContent(forecast = state.data, viewModel)
                 }
             }
         }
@@ -133,7 +133,7 @@ fun ForecastDetailScreen(
 }
 
 @Composable
-private fun ForecastDetailContent(forecast: ForecastResponse,viewModel: ForecastDetailViewModel) {
+private fun ForecastDetailContent(forecast: ForecastResponse, viewModel: ForecastDetailViewModel) {
     val colors = AppTheme.colors
     val hourlyItems = forecast.todayHourlyItems()
     val dailyItems = forecast.dailyItems()
@@ -154,8 +154,10 @@ private fun ForecastDetailContent(forecast: ForecastResponse,viewModel: Forecast
         }
 
         item {
-            SectionTitle(normal = stringResource(R.string.daily_normal),
-                bold = stringResource(R.string.daily_bold))
+            SectionTitle(
+                normal = stringResource(R.string.daily_normal),
+                bold = stringResource(R.string.daily_bold)
+            )
             Spacer(Modifier.height(10.dp))
             if (hourlyItems.isEmpty()) {
                 Text(
@@ -177,8 +179,10 @@ private fun ForecastDetailContent(forecast: ForecastResponse,viewModel: Forecast
 
         item {
             Spacer(Modifier.height(4.dp))
-            SectionTitle(normal = stringResource(R.string.next_days_normal),
-                bold = stringResource(R.string.forecast))
+            SectionTitle(
+                normal = stringResource(R.string.next_days_normal),
+                bold = stringResource(R.string.forecast)
+            )
             Spacer(Modifier.height(10.dp))
         }
 

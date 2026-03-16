@@ -1,18 +1,14 @@
 package com.example.weatherapp.navigation
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -21,6 +17,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.weatherapp.data.weather.AppRepository
 import com.example.weatherapp.data.weather.model.FavoriteLocation
+import com.example.weatherapp.presentation.alert.view.AlertsScreen
+import com.example.weatherapp.presentation.alert.viewmodel.AlertsFactory
+import com.example.weatherapp.presentation.alert.viewmodel.AlertsViewModel
 import com.example.weatherapp.presentation.fav.view.FavoriteScreen
 import com.example.weatherapp.presentation.fav.viewmodel.FavoriteFactory
 import com.example.weatherapp.presentation.fav.viewmodel.FavoriteViewModel
@@ -42,10 +41,11 @@ fun AppNavHost(
     settingsViewModel: SettingsViewModel,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
 
 
     val favoriteViewModel: FavoriteViewModel = viewModel(factory = FavoriteFactory(repository))
-
+    val alertsViewModel: AlertsViewModel = viewModel(factory = AlertsFactory(repository, context))
     NavHost(
         navController = navController,
         startDestination = NavItem.Home.route,
@@ -111,17 +111,14 @@ fun AppNavHost(
             )
         }
 
-        composable(NavItem.Alerts.route) { PlaceholderScreen("Alerts") }
+        composable(NavItem.Alerts.route) {
+            AlertsScreen(viewModel = alertsViewModel)
+        }
+
 
     }
 }
 
-@Composable
-private fun PlaceholderScreen(title: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = title, color = Color.White, fontSize = 24.sp)
-    }
-}
 
 sealed class NavItem(
     val route: String,

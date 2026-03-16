@@ -96,6 +96,9 @@ class HomeViewModel(private val repository: AppRepository) : ViewModel() {
         Log.d("HomeVM", "loadWeather called: lat=$lat lon=$lon")
         lastLat = lat
         lastLon = lon
+        viewModelScope.launch {
+            repository.setLastKnownLocation(lat, lon)
+        }
         fetchWeather(lat, lon)
     }
 

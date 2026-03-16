@@ -4,13 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.weatherapp.data.weather.datasource.local.FavoriteDao
+import com.example.weatherapp.data.weather.model.Alert
 import com.example.weatherapp.data.weather.model.FavoriteLocation
 
-@Database(entities = [FavoriteLocation::class], version = 1)
+@Database(
+    entities = [FavoriteLocation::class, Alert::class],
+    version = 2,
+)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun favoriteDao(): FavoriteDao
+    abstract fun alertDao(): AlertDao
 
     companion object {
         @Volatile

@@ -2,6 +2,7 @@ package com.example.weatherapp.data.weather
 
 import com.example.weatherapp.data.weather.datasource.local.LocalDataSource
 import com.example.weatherapp.data.weather.datasource.remote.WeatherRemoteDataSource
+import com.example.weatherapp.data.weather.model.Alert
 import com.example.weatherapp.data.weather.model.CurrentWeatherResponse
 import com.example.weatherapp.data.weather.model.FavoriteLocation
 import com.example.weatherapp.data.weather.model.ForecastResponse
@@ -42,6 +43,21 @@ class AppRepositoryImpl(
     override suspend fun getFavoriteById(id: Int): FavoriteLocation? =
         localDataSource.getFavoriteById(id)
 
+    override fun getAllAlerts(): Flow<List<Alert>> = localDataSource.getAllAlerts()
+
+    override suspend fun getAlertById(id: Int): Alert? = localDataSource.getAlertById(id)
+
+    override suspend fun getActiveAlerts(): List<Alert> = localDataSource.getActiveAlerts()
+    override suspend fun insertAlert(alert: Alert): Long = localDataSource.insertAlert(alert)
+
+    override suspend fun updateAlert(alert: Alert) = localDataSource.updateAlert(alert)
+
+    override suspend fun deleteAlert(alert: Alert) = localDataSource.deleteAlert(alert)
+
+    override suspend fun deactivateAlert(id: Int) = localDataSource.deactivateAlert(id)
+
+    override suspend fun deleteAllAlerts() = localDataSource.deleteAllAlerts()
+
     override fun getUnits(): Flow<String> =
         localDataSource.getUnits()
 
@@ -77,4 +93,11 @@ class AppRepositoryImpl(
 
     override suspend fun setThemeMode(mode: String) =
         localDataSource.setThemeMode(mode)
+
+
+    override fun getLastKnownLocation(): Flow<Pair<Double, Double>?> =
+        localDataSource.getLastKnownLocation()
+
+    override suspend fun setLastKnownLocation(lat: Double, lon: Double) =
+        localDataSource.setLastKnownLocation(lat, lon)
 }

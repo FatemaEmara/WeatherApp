@@ -9,7 +9,6 @@
     <string name="no_hourly_data">لا توجد بيانات بالساعة</string>
     <string name="no_forecast_data">لا توجد بيانات للتوقعات</string>
 
-
     <string name="hourly">تفاصيل</string>
     <string name="details">الساعة</string>
     <string name="daily_normal">تفاصيل</string>
@@ -55,14 +54,11 @@
     <string name="fahrenheit">فهرنهايت °F</string>
     <string name="kelvin">كلفن K</string>
 
-
     <string name="meter_per_sec">متر / ثانية</string>
     <string name="miles_per_hour">ميل / ساعة</string>
 
-
     <string name="language_english">الإنجليزية</string>
     <string name="language_arabic">العربية</string>
-
 
     <string name="theme_light">فاتح</string>
     <string name="theme_dark">داكن</string>
@@ -73,7 +69,7 @@
     <string name="map_search_hint">ابحث عن مدينة…</string>
     <string name="map_save">حفظ الموقع</string>
     <string name="map_no_selection">اضغط مطولاً على الخريطة لاختيار موقع</string>
-    <string name="select_location_first">اختر مكان اولا </string>
+    <string name="select_location_first">اختر مكان أولاً</string>
 
     <string name="nav_home">الرئيسية</string>
     <string name="nav_favorite">المفضلة</string>
@@ -81,9 +77,67 @@
     <string name="nav_settings">الإعدادات</string>
     <string name="delete">مسح</string>
     <string name="open">فتح</string>
-    <string name="map">خريطه</string>
-    <string name="search_for_a_city">البحث عن مدينه...</string>
+    <string name="map">خريطة</string>
+    <string name="search_for_a_city">البحث عن مدينة...</string>
     <string name="search">بحث</string>
 
+
+    <string name="alerts_title_normal">تنبيهات </string>
+    <string name="alerts_title_bold">الطقس</string>
+
+    <string name="alerts_active_count_one">%1$d تنبيه نشط</string>
+    <string name="alerts_active_count_other">%1$d تنبيهات نشطة</string>
+
+    <string name="alerts_permission_message">إذن الإشعارات مطلوب لكي تعمل التنبيهات.</string>
+    <string name="alerts_permission_allow">السماح</string>
+
+    <string name="alerts_section_notification">إشعار لمرة واحدة</string>
+    <string name="alerts_section_notification_subtitle">احصل على حالة الطقس في وقت محدد</string>
+    <string name="alerts_section_alarms">تنبيهات الطقس</string>
+    <string name="alerts_section_alarms_subtitle">منبّه بصوت عالٍ عند اكتشاف الحالة</string>
+
+    <string name="alerts_notify_me_at">أشعرني في</string>
+    <string name="alerts_not_scheduled">غير مجدول</string>
+    <string name="alerts_fires_once">يُرسل مرة واحدة مع حالة الطقس الحالية</string>
+    <string name="alerts_set_time">تحديد الوقت</string>
+    <string name="alerts_change_time">تغيير</string>
+    <string name="alerts_cancel">إلغاء</string>
+
+    <string name="alerts_empty_title">لا توجد تنبيهات</string>
+    <string name="alerts_empty_subtitle">اضغط على إضافة لإنشاء تنبيه جديد</string>
+
+    <string name="alerts_new_alarm">تنبيه جديد</string>
+    <string name="alerts_add_alarm_cd">إضافة تنبيه</string>
+
+    <string name="alerts_card_from">من: %1$s</string>
+    <string name="alerts_card_until">حتى: %1$s</string>
+    <string name="alerts_card_active"> نشط</string>
+    <string name="alerts_stop_alarm">إيقاف المنبّه</string>
+    <string name="alerts_delete_alert">حذف التنبيه</string>
+
+    <string name="weather_type_rain">تنبيه المطر</string>
+    <string name="weather_type_snow">تنبيه الثلج</string>
+    <string name="weather_type_storm">تنبيه العاصفة</string>
+    <string name="weather_type_fog">تنبيه الضباب</string>
+    <string name="weather_type_heat">تنبيه الحرارة الشديدة</string>
+    <string name="weather_type_cold">تنبيه البرد الشديد</string>
+    <string name="weather_type_wind">تنبيه الرياح القوية</string>
+    <string name="weather_type_any">تنبيه أي طقس</string>
+    <string name="weather_type_unknown">تنبيه الطقس</string>
+
+    <string name="alerts_sheet_title">تنبيه طقس جديد</string>
+    <string name="alerts_sheet_subtitle">يُشغَّل منبّه عند اكتشاف الحالة المحددة</string>
+    <string name="alerts_sheet_start_label">البداية</string>
+    <string name="alerts_sheet_end_label">النهاية</string>
+    <string name="alerts_sheet_start_hint">اضغط لتحديد وقت البداية</string>
+    <string name="alerts_sheet_end_hint">اضغط لتحديد وقت النهاية</string>
+    <string name="alerts_sheet_condition_title">حالة التنبيه</string>
+    <string name="alerts_sheet_condition_subtitle">سيُشغَّل المنبّه عند اكتشاف هذا الطقس</string>
+    <string name="alerts_sheet_confirm">تفعيل التنبيه</string>
+
+    <string name="alerts_error_no_start">يرجى تحديد تاريخ ووقت البداية.</string>
+    <string name="alerts_error_no_end">يرجى تحديد تاريخ ووقت النهاية.</string>
+    <string name="alerts_error_end_before_start">يجب أن يكون وقت النهاية بعد وقت البداية.</string>
+    <string name="alerts_error_start_in_past">يجب أن يكون وقت البداية في المستقبل.</string>
 
 </resources>
