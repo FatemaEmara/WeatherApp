@@ -34,7 +34,8 @@ class MainActivity : ComponentActivity() {
             remoteDataSource = WeatherRemoteDataSourceImpl(WeatherNetwork.weatherService),
             localDataSource = LocalDataSourceImpl(
                 context = applicationContext,
-                favoriteDao = AppDatabase.getInstance(applicationContext).favoriteDao()
+                favoriteDao = AppDatabase.getInstance(applicationContext).favoriteDao(),
+                alertDao =  AppDatabase.getInstance(applicationContext).alertDao()
             )
         )
     }
@@ -47,7 +48,8 @@ class MainActivity : ComponentActivity() {
         val langCode = runBlocking {
             LocalDataSourceImpl(
                 context = newBase,
-                favoriteDao = AppDatabase.getInstance(newBase).favoriteDao()
+                favoriteDao = AppDatabase.getInstance(newBase).favoriteDao(),
+                alertDao = AppDatabase.getInstance(newBase).alertDao()
             ).getLanguage().first()
         }
         super.attachBaseContext(LocaleHelper.applyLocale(newBase, langCode))
