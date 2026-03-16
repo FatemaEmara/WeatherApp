@@ -35,7 +35,7 @@ data class ForecastMain(
 )
 
 data class ForecastSys(
-    val pod: String  // "d" = day, "n" = night
+    val pod: String
 )
 
 data class City(
