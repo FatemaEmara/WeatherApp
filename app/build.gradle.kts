@@ -77,4 +77,6 @@ dependencies {
     // build.gradle.kts
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 }
